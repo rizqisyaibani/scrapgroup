@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Scraping Page{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    <div class="form-group">
+        <label>Scrape URL</label>
+        <textarea name="linkscrape" placeholder="Fill the URL!"
+                  class="form-control"></textarea>
+    </div>
+</form>
+
+<form action="{{ url_for('report') }}" method="post">
+    <button type="submit" class="btn btn-primary">Scrape!</button>
+</form>
+
+{% endblock %}

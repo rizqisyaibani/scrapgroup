@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Book Menu{% endblock  %}
+
+{% block content %}
+<form enctype = "multipart/form-data" action="#" method="POST">
+    <label for="import-book">Import Book</label>
+    <br>
+    <input type="file" name="file-to-import" id="import-book">
+    <br>
+    <button type="submit" value="Upload">Import</button>
+</form>
+
+<label for="export-all-books">Export All Books</label>
+<br>
+<button type="submit" id="export-all-books" formaction="">Export</button>
+
+<table>
+    <tr>
+        <td>Title</td>
+        <td>Author</td>
+        <td>Genres</td>
+        <td>Publisher</td>
+        <td>Publication Date</td>
+        <td>Status Edit</td>
+        <td>Delete</td>
+    </tr>
+</table>
+{% endblock  %}
