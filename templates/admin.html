@@ -1,23 +1,30 @@
-{% extends 'base.html' %}
+{% extends 'layout.html' %}
 
 {% block content %}
 <h1>{% block title %} Hi, Admin {% endblock %}</h1>
 
+<h1>
 <form action="{{ url_for('scrape')}}" method="post">
     <div class="form-group">
         <button type="scrapping" class="btn btn-primary">Scrapping</button>
     </div>
 </form>
+</h1>
 
+<h1>
 <form action="{{ url_for('bookmenu')}}" method="post">
     <div class="form-group">
         <button type="book_menu" class="btn btn-primary">Book Menu</button>
     </div>
 </form>
+</h1>
 
+<h1>
 <form action="{{ url_for('dashboard')}}" method="post">
     <div class="form-group">
         <button type="dashboard" class="btn btn-primary">Dashboard</button>
     </div>
 </form>
+</h1>
+
 {% endblock %}

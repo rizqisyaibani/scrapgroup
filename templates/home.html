@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2>Home Page</h2>
+<h1>{% block title %} Daftar Buku {% endblock %}</h1>
+
+<input class="form-control" list="datalistOptions" id="exampleDataList" placeholder=" Type to search...">
+<datalist id="datalistOptions">
+</datalist>
+{% endblock %}
