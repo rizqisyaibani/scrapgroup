@@ -20,7 +20,6 @@ app.config['MYSQL_DB'] = 'scrape'
 
 mysql = MySQL(app)
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     msg = ''
@@ -79,7 +78,15 @@ def register():
 @app.route('/')
 def home():
     if 'loggedin' in session:
+        mydb = mysql.connection
+        cursor = mydb.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM books')
+        result = cursor.fetchall()
+        for i in result:
+            print(i)
+            
         return render_template('home.html', username=session['username'])
+    
     return redirect(url_for('login'))
 
 @app.route('/profile')
@@ -92,31 +99,17 @@ def profile():
     return redirect(url_for('login'))
 
 
-@app.route('/admin')
-def admin():
-    if request.method == 'POST':
-        title = request.form['title']
+@app.route('/book')
+def book():
+    return render_template('book.html')
 
-        if not title:
-            flash('Title is required!')
-        else:
-            mydb = get_db_connection()
-            cursor = mydb.cursor()
-            cursor.execute('INSERT INTO posts (title, content) VALUES (%s, %s)',
-                         (title, content))
-            mydb.commit()
-            mydb.close()
-            return redirect(url_for('home'))
-        
-    return render_template('admin.html')
-
-@app.route('/admin/scrape', methods=('GET', 'POST'))
+@app.route('/book/scrape', methods=('GET', 'POST'))
 def scrape():
     if request.method == 'POST':
-        link = request.form['link']
-        result = scrape_func(link)
+        links = request.form['link']
+        result = scrape_func(links)
 
-        if not link:
+        if not links :
             flash('Where is your url?')
         else:
             mydb = mysql.connection
@@ -126,20 +119,19 @@ def scrape():
             mydb.commit()
             mydb.close()
             return redirect(url_for('report'))
-        return 'Where is your url?'
         
     return render_template('scrape.html')
     
     
-@app.route('/admin/scrape/report', methods=('GET', 'POST'))
+@app.route('/book/scrape/report', methods=('GET', 'POST'))
 def report():
     return render_template('scrape_report.html')
 
 
-@app.route('/admin/bookmenu', methods=('POST',))
+@app.route('/book/bookmenu', methods=('POST',))
 def bookmenu():
     return render_template('book_menu.html')
 
-@app.route('/admin/dashboard', methods=('POST',))
+@app.route('/book/dashboard', methods=('POST',))
 def dashboard():
     return render_template('dashboard.html')

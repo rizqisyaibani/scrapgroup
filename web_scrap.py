@@ -3,6 +3,7 @@ import requests
 import re
 
 def scrape_func(url):
+    
     result = requests.get(url).text
     doc = BeautifulSoup(result, "html.parser")
 
