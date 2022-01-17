@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request, url_for, flash, redirect, session
 from flask_mysqldb import MySQL
 from werkzeug.exceptions import abort
+from bs4 import BeautifulSoup
 
+
+from web_scrap import scrape_func
+import requests
 import MySQLdb.cursors
 import mysql.connector
 import re
@@ -72,7 +76,7 @@ def register():
         msg = 'Please fill out the form!'
     return render_template('register.html', msg=msg)
 
-@app.route('/home')
+@app.route('/')
 def home():
     if 'loggedin' in session:
         return render_template('home.html', username=session['username'])
@@ -108,11 +112,29 @@ def admin():
 
 @app.route('/admin/scrape', methods=('GET', 'POST'))
 def scrape():
-    return render_template('scrape.html')
+    if request.method == 'POST':
+        link = request.form['link']
+        result = scrape_func(link)
 
-@app.route('/admin/scrape/report', methods=('POST',))
+        if not link:
+            flash('Where is your url?')
+        else:
+            mydb = mysql.connection
+            cursor = mydb.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO books (cover, title, descr, author, publisher, pub_date, genres, lang, pages, comp, price, rating, tot_rat) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                           (result['cover'], result['title'], result['descr'], result['author'], result['publisher'], result['pub_date'], result['genres'], result['lang'], result['pages'], result['comp'], result['price'], result['rat'], result['tot_rat']))
+            mydb.commit()
+            mydb.close()
+            return redirect(url_for('report'))
+        return 'Where is your url?'
+        
+    return render_template('scrape.html')
+    
+    
+@app.route('/admin/scrape/report', methods=('GET', 'POST'))
 def report():
     return render_template('scrape_report.html')
+
 
 @app.route('/admin/bookmenu', methods=('POST',))
 def bookmenu():
