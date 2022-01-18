@@ -1,4 +1,6 @@
 from bs4 import BeautifulSoup
+from datetime import datetime
+
 import requests
 import re
 
@@ -28,9 +30,9 @@ def scrape_func(url):
 
     compability = doc.find("div", string='Best for').find_next_sibling().text
 
-    price = doc.select('button[class="LkLjZd ScJHi HPiPcc IfEcue"]  meta[itemprop="price"]')[0]['content'].replace('$','')
+    price = doc.find('span', class_='LV0gI').text.replace('$','')
     price2 = float(price) * 14266.00
-    price_final = 'Rp ' + "{:,}".format(int(price2)) + ',00'
+    price_final = 'Rp ' + '{:.2f}'.format(price2)
 
     rating = doc.find('div', class_='BHMmbe').text
 
@@ -43,14 +45,23 @@ def scrape_func(url):
         'descr':description,
         'author':author,
         'publisher':publisher,
-        'pub_date':publication_date,
+        'pub_date':get_datetime(publication_date),
         'genres':genres,
         'lang':language,
         'pages':pages,
         'comp':compability,
-        'price':price_final,
+        'price':price_final.replace('Rp',''),
         'rat':rating,
         'tot_rat':total_rating
     }
 
     return scrap_data
+
+def get_datetime(d):
+    list_d = d.split(" ")
+    date = int(list_d[1].replace(',', ''))
+    month_list = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    month = month_list.index(list_d[0]) + 1
+    year = int(list_d[2])
+
+    return datetime(year, month, date)

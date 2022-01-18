@@ -105,13 +105,13 @@ def book():
 
 @app.route('/book/scrape', methods=('GET', 'POST'))
 def scrape():
-    if request.method == 'POST':
-        links = request.form['link']
-        result = scrape_func(links)
-
-        if not links :
+    if request.method == 'POST' and 'link' in request.form:
+        link = request.form['link']
+        
+        if link == '':
             flash('Where is your url?')
         else:
+            result = scrape_func(link)
             mydb = mysql.connection
             cursor = mydb.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('INSERT INTO books (cover, title, descr, author, publisher, pub_date, genres, lang, pages, comp, price, rating, tot_rat) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
