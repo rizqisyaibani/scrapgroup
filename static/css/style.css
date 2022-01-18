@@ -78,6 +78,67 @@ body {
     background-color: #2868c7;
     transition: background-color 0.2s;
 }
+
+
+
+.login form div.p-t-54, .register form div.p-t-54 {
+    padding-top: 54px;
+}
+.login form div.p-b-20, .register form div.p-b-20 {
+    padding-bottom: 20px;
+}
+.login form div.txt1, .register form div.txt1 {
+    font-family: Poppins-Regular;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #666666;
+}
+.login form div.text-center, .register form div.text-center {
+    text-align: center !important;
+}
+.login form div.flex-c-m, .register form div.flex-c-m {
+    display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	justify-content: center;
+	-ms-align-items: center;
+	align-items: center;
+}
+.login form div a.login100-social-item, .register form div a.login100-social-item {
+    font-size: 25px;
+    color: #fff;
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 5px;
+}
+.login form div a.login100-social-item:hover, .register form div a.login100-social-item:hover {
+    color: #fff;
+    background-color: #333333;
+}
+.login form div a.bg1, .register form div a.bg1 {
+    background-color: #3b5998
+}
+.login form div a.bg2, .register form div a.bg2 {
+    background-color: #1da1f2
+}
+.login form div.flex-c-m a.bg3, .register form div.flex-c-m a.bg3 {
+    background-color: #ea4335
+}
+
+
+
+
 .navtop {
     background-color: #2f3947;
     height: 60px;

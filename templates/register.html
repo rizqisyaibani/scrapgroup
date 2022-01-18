@@ -29,6 +29,26 @@
 				<div class="msg">{{ msg }}</div>
 				<input type="submit" value="Register">
 			</form>
+
+			<div class="">
+				<span>
+					Or Connect with
+				</span>
+
+				<div class="">
+					<a href="#" class="">
+						<i class="fab fa-facebook-f"></i>
+					</a>
+
+					<a href="#" class="">
+						<i class="fab fa-twitter"></i>
+					</a>
+
+					<a href="{{ url_for('googlelogin') }}" class="">
+						<i class="fab fa-google"></i>
+					</a>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
