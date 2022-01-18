@@ -30,8 +30,8 @@ def scrape_func(url):
 
     compability = doc.find("div", string='Best for').find_next_sibling().text
 
-    price = doc.find('span', class_='LV0gI').text.replace('$','')
-    price2 = float(price) * 14266.00
+    price = doc.find_all("button", jsmodel="UfnShf")[0]
+    price2 = float(price.getText().replace(' Ebook', '').replace('$', '').split(' ')[-1]) * 14266.00
     price_final = 'Rp ' + '{:.2f}'.format(price2)
 
     rating = doc.find('div', class_='BHMmbe').text
